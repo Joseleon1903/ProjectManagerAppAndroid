@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!--    nuevos colores para la app orange theme-->
+    <color name="md_orange_500">#FF9800</color>
+    <color name="md_orange_700">#F57C00</color>
+    <color name="md_light_blue_A200">#FFAB40</color>
+
+</resources>
