@@ -1,8 +1,8 @@
-package com.task.manager.life.project
+package com.task.manager.life.project.ui.task
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import com.task.manager.life.project.R
 
 import kotlinx.android.synthetic.main.activity_add_task.*
 
