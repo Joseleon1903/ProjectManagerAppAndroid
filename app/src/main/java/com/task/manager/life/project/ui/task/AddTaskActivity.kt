@@ -13,7 +13,6 @@ class AddTaskActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_task)
         setSupportActionBar(toolbar)
 
-
     }
 
 }

@@ -8,5 +8,7 @@
     <color name="md_orange_500">#FF9800</color>
     <color name="md_orange_700">#F57C00</color>
     <color name="md_light_blue_A200">#FFAB40</color>
+    <color name="bg_project">#e0f2f1</color>
+
 
 </resources>
