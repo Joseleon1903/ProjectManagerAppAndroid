@@ -2,18 +2,17 @@ package com.task.manager.life.project.ui.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.EventLogTags
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.task.manager.life.project.R
+import com.task.manager.life.project.db.DataBaseManager
 import com.task.manager.model.ProjectData
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.molde_project.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,7 +37,7 @@ class HomeFragment : Fragment() {
 //            textView.text = it
 //        })
 
-        setUpListaTest()
+        loadProject()
 
         adapter = ProjectAdapter(this.context, listProject)
 
@@ -46,47 +45,62 @@ class HomeFragment : Fragment() {
 
         viewListado.adapter = adapter
 
-
-
         return root
     }
 
 
-    private fun setUpListaTest(){
-        val project = ProjectData("test", "description", true, Date(), Date())
-        listProject.add(project)
-    }
+    class ProjectAdapter(context: Context?, var listProject: ArrayList<ProjectData>) : BaseAdapter(){
 
-    class ProjectAdapter(contexto: Context?, var listaProject: ArrayList<ProjectData>) : BaseAdapter(){
-
-        var context : Context? = contexto
+        var context : Context? = context
 
         override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
 
-            val project = listaProject[p0]
+            val project = listProject[p0]
 
             val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-            val miVista = inflater.inflate(R.layout.molde_project, null)
+            var miVista = inflater.inflate(R.layout.molde_project, null)
             miVista.textProjectName.setText(project.name)
             if (!project.active)  miVista.textProjectStatus.setText("INACTIVE") else miVista.textProjectStatus.setText("ACTIVE")
             miVista.textPercentage.setText("0 %")
             return miVista
-
         }
 
         override fun getCount(): Int {
-           return  listaProject.size
+           return  listProject.size
         }
 
         override fun getItem(p0: Int): Any {
-            return listaProject[p0]
+            return listProject[p0]
         }
 
         override fun getItemId(p0: Int): Long {
             return p0.toLong()
         }
 
+    }
+
+    private fun loadProject(){
+        listProject.clear()
+        var database = DataBaseManager(this.context!!)
+        var columnas = arrayOf("ID", "NAME", "DESCRIPTION", "STATUS", "START_DATE", "END_DATE")
+        val cursor = database.query(columnas, null, null,null)
+
+        if(cursor.moveToFirst()) {
+            do {
+                val ID  = cursor.getInt(cursor.getColumnIndex("ID"))
+                val name = cursor.getString(cursor.getColumnIndex("NAME"))
+                val description = cursor.getString(cursor.getColumnIndex("DESCRIPTION"))
+                val status = cursor.getInt(cursor.getColumnIndex("STATUS")) > 0
+                val startDate = cursor.getString(cursor.getColumnIndex("START_DATE"))
+                val endDate = cursor.getString(cursor.getColumnIndex("END_DATE"))
+
+                val proj = ProjectData(name,description, status, startDate, endDate )
+                listProject.add(proj)
+
+            } while (cursor.moveToNext())
+
+        }
 
     }
 

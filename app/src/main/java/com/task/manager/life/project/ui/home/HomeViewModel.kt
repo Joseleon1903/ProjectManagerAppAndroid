@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 class HomeViewModel : ViewModel() {
 
 
-
     private val _text = MutableLiveData<String>().apply {
         value = "Please add new project with the button below"
     }
