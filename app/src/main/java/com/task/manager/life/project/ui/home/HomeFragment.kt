@@ -2,20 +2,19 @@ package com.task.manager.life.project.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.EventLogTags
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.task.manager.life.project.R
 import com.task.manager.life.project.db.DataBaseManager
 import com.task.manager.model.ProjectData
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.molde_project.view.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
@@ -49,7 +48,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    class ProjectAdapter(context: Context?, var listProject: ArrayList<ProjectData>) : BaseAdapter(){
+   inner class ProjectAdapter(context: Context?, var listProject: ArrayList<ProjectData>) : BaseAdapter(){
 
         var context : Context? = context
 
@@ -61,8 +60,23 @@ class HomeFragment : Fragment() {
 
             var miVista = inflater.inflate(R.layout.molde_project, null)
             miVista.textProjectName.setText(project.name)
-            if (!project.active)  miVista.textProjectStatus.setText("INACTIVE") else miVista.textProjectStatus.setText("ACTIVE")
+            if (!project.active)  miVista.textProjectStatus.setText("IN") else miVista.textProjectStatus.setText("AC")
             miVista.textPercentage.setText("0 %")
+
+            miVista.deleteImage.setOnClickListener{
+                val dbManager = DataBaseManager(this.context!!)
+                val selectionArgs = arrayOf(project.ID.toString())
+                dbManager.delete("ID=?", selectionArgs)
+                loadProject()
+                viewListado.adapter = ProjectAdapter(this.context, listProject)
+            }
+
+            miVista.setOnClickListener{
+
+                val nameEmlement = project.name
+                Toast.makeText(this.context!!, "click list view $nameEmlement", Toast.LENGTH_SHORT).show()
+
+            }
             return miVista
         }
 
@@ -95,7 +109,7 @@ class HomeFragment : Fragment() {
                 val startDate = cursor.getString(cursor.getColumnIndex("START_DATE"))
                 val endDate = cursor.getString(cursor.getColumnIndex("END_DATE"))
 
-                val proj = ProjectData(name,description, status, startDate, endDate )
+                val proj = ProjectData(ID,name,description, status, startDate, endDate )
                 listProject.add(proj)
 
             } while (cursor.moveToNext())

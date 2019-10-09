@@ -70,5 +70,10 @@ class DataBaseManager{
         return cursor
     }
 
+    fun delete(selection: String?, selectionArgs: Array<String>?): Int{
+        val contador = sqlDb!!.delete(tableName, selection, selectionArgs)
+        return  contador
+    }
+
 
 }

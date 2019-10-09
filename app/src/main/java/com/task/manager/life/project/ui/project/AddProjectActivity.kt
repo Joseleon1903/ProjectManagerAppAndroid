@@ -53,14 +53,14 @@ class AddProjectActivity : AppCompatActivity() {
 
     fun getViewData(): ProjectData{
 
-        val name : String = textProjectNameInput.text.toString()
-        val description : String = textProjectDescriptionInput.text.toString()
+        val name : String = textProjectNameInput.text.toString().replace("\n", " ")
+        val description : String = textProjectDescriptionInput.text.toString().trim().replace("\n", " ")
         val status : String =switch1.text.toString()
         val strDate : String =editText2.text.toString()
         val endDate: String =editText3.text.toString()
         val active : Boolean = if (status == "ACTIVE") true else false
 
-        return  ProjectData(name, description, active, strDate, endDate )
+        return  ProjectData(null, name, description, active, strDate, endDate )
 
     }
 
