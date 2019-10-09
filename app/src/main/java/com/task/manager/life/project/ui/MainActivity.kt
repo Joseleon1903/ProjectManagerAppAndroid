@@ -13,9 +13,12 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.task.manager.life.project.R
 import com.task.manager.life.project.ui.project.AddProjectActivity
+import com.task.manager.life.project.ui.settings.SettingsActivity
+import kotlinx.android.synthetic.main.content_add_project.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,6 +62,19 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+     when(item!!.itemId){
+
+         R.id.action_settings ->{
+             val intent = Intent(this, SettingsActivity::class.java)
+             startActivity(intent)
+         }
+     }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

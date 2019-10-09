@@ -75,5 +75,10 @@ class DataBaseManager{
         return  contador
     }
 
+    fun update(values: ContentValues, selection: String?, selectionArgs: Array<String>?): Int{
+        val contador = sqlDb!!.update(tableName, values, selection, selectionArgs)
+        return contador
+    }
+
 
 }

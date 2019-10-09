@@ -1,6 +1,7 @@
 package com.task.manager.life.project.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.task.manager.life.project.R
 import com.task.manager.life.project.db.DataBaseManager
+import com.task.manager.life.project.ui.project.AddProjectActivity
 import com.task.manager.model.ProjectData
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.molde_project.view.*
@@ -75,6 +77,15 @@ class HomeFragment : Fragment() {
 
                 val nameEmlement = project.name
                 Toast.makeText(this.context!!, "click list view $nameEmlement", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this.context,AddProjectActivity::class.java )
+                intent.putExtra("projectId",project.ID )
+                intent.putExtra("projectName",project.name )
+                intent.putExtra("projectDescription",project.description )
+                intent.putExtra("projectStatus",project.active )
+                intent.putExtra("projectStartDate",project.startDate )
+                intent.putExtra("projectEndDate",project.endDate )
+                startActivity(intent)
 
             }
             return miVista
