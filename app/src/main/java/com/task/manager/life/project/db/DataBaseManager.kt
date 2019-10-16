@@ -16,12 +16,6 @@ class DataBaseManager{
 
     val tableName : String = "PROJECT"
 
-    val columName: String = "NAME"
-    val columDescription: String = "DESCRIPTION"
-    val columStatus: Boolean = false
-    val columStarDate: String= ""
-    val columEndData: String = ""
-
     val dbversion = 1
 
     val sqlCreationTable = "CREATE TABLE IF NOT EXISTS PROJECT " +

@@ -19,8 +19,6 @@ class AddProjectActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_project)
         setSupportActionBar(toolbar)
 
-        val intentRecive = intent
-
         if(intent!!.extras != null){
             val idProjectData:Int? = intent!!.extras!!.getInt("projectId")
             val name = intent!!.extras!!.getString("projectName")
@@ -97,16 +95,16 @@ class AddProjectActivity : AppCompatActivity() {
 
 //        values.put("ID", id)
         values.put("NAME", project.name)
-        values.put("DESCRIPTION", project.name)
-        values.put("STATUS", project.name)
-        values.put("START_DATE", project.name)
-        values.put("END_DATE", project.name)
+        values.put("DESCRIPTION", project.description)
+        values.put("STATUS", project.active)
+        values.put("START_DATE", project.startDate)
+        values.put("END_DATE", project.endDate)
 
         val selectionArgs = arrayOf(id.toString())
         val Id = database.update(values, "ID=?", selectionArgs)
 
         if (Id > 0) {
-            Toast.makeText(this, "Project update Successifull", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Project update Successfully", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
