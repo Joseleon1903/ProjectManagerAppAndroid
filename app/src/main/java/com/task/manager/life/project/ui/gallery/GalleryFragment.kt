@@ -26,7 +26,7 @@ class GalleryFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_gallery, container, false)
 
         val factory = InjectiorUtils.providerTaskViewModelFactory(this@GalleryFragment.requireContext())
-        val galleryViewModel = ViewModelProvider(this, factory).get(TaskViewModel::class.java)
+        galleryViewModel = ViewModelProvider(this, factory).get(TaskViewModel::class.java)
 
         val observer = Observer<List<TaskEntity>> { task ->
             if (task != null) {
@@ -41,18 +41,18 @@ class GalleryFragment : Fragment() {
 
         val botton = root.findViewById<Button>(R.id.addContact_button)
         botton.setOnClickListener {
-            val textName = phone_editText.text.toString()
-            val description = lastName_editText.text.toString()
-            val identifier = identifier_editText.text.toString().toLong()
-            val task = TaskEntity(textName, description, identifier )
-            galleryViewModel.saveContact(task)
+            addTask()
         }
 
         return root
     }
 
     fun addTask(){
-
+        val textName = phone_editText.text.toString()
+        val description = lastName_editText.text.toString()
+        val identifier = identifier_editText.text.toString().toLong()
+        val task = TaskEntity(textName, description, identifier )
+        galleryViewModel.saveContact(task)
 
     }
 
