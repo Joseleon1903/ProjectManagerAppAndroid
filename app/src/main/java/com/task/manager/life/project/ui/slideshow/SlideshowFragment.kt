@@ -70,15 +70,15 @@ class SlideshowFragment : Fragment() {
         mProgressDialog = ProgressBar(this.mContext, null, android.R.attr.progressBarStyleLarge)
 
         // Initialize a new click listener for positive button widget
-        mButtonDo!!.setOnClickListener(View.OnClickListener {
+        mButtonDo!!.setOnClickListener {
             // Execute the async task
             mMyTask = DownloadTask()
                 .execute(
                     stringToURL(
-                        "https://www.royalcanin.es/wp-content/uploads/2017/01/gatos-de-interior.jpg"
+                        "https://doc-0k-bk-docs.googleusercontent.com/docs/securesc/auhrtqsvav6n71ptplm6flrj2d6j54q6/p0t4okuv0c92dsbabnvg3fs4usobmv4v/1572026400000/09786362980406590161/09786362980406590161/1tYfCX3W2GeN9U4NHLTGIYZgpPXUWW73Q"
                     )
                 )
-        })
+        }
 
 //        permissionsRequestLocation()
 
