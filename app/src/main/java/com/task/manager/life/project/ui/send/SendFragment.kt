@@ -1,6 +1,8 @@
 package com.task.manager.life.project.ui.send
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +24,20 @@ class SendFragment : Fragment() {
         sendViewModel =
             ViewModelProviders.of(this).get(SendViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_send, container, false)
-        val textView: TextView = root.findViewById(R.id.text_send)
+        val textView: TextView = root.findViewById(R.id.nuevoText)
         sendViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "call on create method")
+
+
+    }
+
+
+
 }

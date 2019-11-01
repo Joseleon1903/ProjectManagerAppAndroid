@@ -1,6 +1,7 @@
 package com.task.manager.life.project.ui.slideshow
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.ContextWrapper
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -122,10 +124,11 @@ class SlideshowFragment : Fragment() {
                 connection = url.openConnection() as HttpURLConnection
 
                 // Connect the http url connection
-                connection!!.connect()
+                connection.connect()
 
                 // Get the input stream from http url connection
-                val inputStream = connection!!.getInputStream()
+                val inputStream = connection.getInputStream()
+                Log.d(TAG, "read input stream stream ..")
 
                 /*
                     BufferedInputStream
@@ -139,6 +142,7 @@ class SlideshowFragment : Fragment() {
                 */
                 // Initialize a new BufferedInputStream from InputStream
                 val bufferedInputStream = BufferedInputStream(inputStream)
+                Log.d(TAG, "read bufferr stream ..")
 
                 /*
                     decodeStream
@@ -211,7 +215,7 @@ class SlideshowFragment : Fragment() {
 
         try {
             // Initialize a new OutputStream
-            var stream: OutputStream? = null
+            var stream: OutputStream?
 
             // If the output file exists, it can be replaced or appended to it
             stream = FileOutputStream(file)
@@ -220,10 +224,10 @@ class SlideshowFragment : Fragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
 
             // Flushes the stream
-            stream!!.flush()
+            stream.flush()
 
             // Closes the stream
-            stream!!.close()
+            stream.close()
 
         } catch (e: IOException) // Catch the exception
         {
